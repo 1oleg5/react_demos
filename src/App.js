@@ -1,29 +1,20 @@
 import React, {useEffect, useState} from "react";
-import Post from "./Components/Users/Post";
-import {getUser, getUsers} from "./Components/Users/getPost";
+import getSpase from "./Components/Space/getSpase";
+import Spase from "./Components/Space/Spase";
 
 function App() {
-    let [users, setUsers] = useState([]);
-    let [chosenUser, setChosenUser] = useState(null);
+    let [spase, setSpase] = useState([]);
     useEffect(() => {
-        getUsers().then(value => setUsers(value));
-    }, [])
-
-    const choseUser = (id) => {
-        getUser(id).then(value => setChosenUser(value));
-    }
-
-    return (<div>
-            <div>{chosenUser?.body}</div>
-            <hr/>
+        getSpase().then(value => setSpase(value));
+    },[])
+    return (
+        <div>
             {
-                users.map(value => <Post
-                    key={value.id}
-                    item={value}
-                    choseUser={choseUser}
+                spase.map(value => <Spase
+                key={value.mission_name}
+                item={value}
                 />)
             }
-
         </div>
     );
 }
