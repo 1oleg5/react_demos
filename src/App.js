@@ -10,8 +10,8 @@ function App() {
     return (
         <div>
             {
-                spase.map(value => <Spase
-                key={value.mission_name}
+                spase.filter(value => value.launch_year !== '2020').map(value => <Spase
+                key={value.flight_number}
                 item={value}
                 />)
             }
