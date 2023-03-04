@@ -1,31 +1,20 @@
-import React, {useEffect, useState} from "react";
-import Post from "./Components/Users/Post";
-import {getUser, getUsers} from "./Components/Users/getPost";
+import React from 'react';
+import {UsersForm} from "./Components/Lesson_3/Components/usersForm/usersForm";
+import {Users} from "./Components/Lesson_3/Components/Users/Users";
+import {useEffect, useState} from "react";
+import {usersRequests} from "./Components/Lesson_3/userRequests";
 
-function App() {
-    let [users, setUsers] = useState([]);
-    let [chosenUser, setChosenUser] = useState(null);
+export default function App() {
+    const [users, setUsers] = useState([]);
     useEffect(() => {
-        getUsers().then(value => setUsers(value));
-    }, [])
+        usersRequests.getAll().then(({data}) => setUsers([...data]))
+    },[])
 
-    const choseUser = (id) => {
-        getUser(id).then(value => setChosenUser(value));
-    }
-
-    return (<div>
-            <div>{chosenUser?.body}</div>
+    return (
+        <div style={{ textAlign: 'center'}}>
+            <UsersForm setUsers={setUsers}/>
             <hr/>
-            {
-                users.map(value => <Post
-                    key={value.id}
-                    item={value}
-                    choseUser={choseUser}
-                />)
-            }
-
+            <Users users={users}/>
         </div>
     );
 }
-
-export default App;
