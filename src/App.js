@@ -1,31 +1,42 @@
-import React from 'react';
-import {UsersForm} from "./Components/Lesson_3/Components/usersForm/usersForm";
-import {Users} from "./Components/Lesson_3/Components/Users/Users";
-import {useEffect, useState} from "react";
-import {usersRequests} from "./Components/Lesson_3/userRequests";
-import {Comments} from "./Components/Lesson_3/Components/Comments/Comments";
-import {CommentsForm} from "./Components/Lesson_3/Components/Comments/CommentsForm";
-import {commentsRequests} from "./Components/Lesson_3/Components/Comments/commentsRequest";
+import {Link, Routes, Route} from "react-router-dom";
 
-export default function App() {
-    // const [users, setUsers] = useState([]);
-    // useEffect(() => {
-    //     usersRequests.getAll().then(({data}) => setUsers([...data]))
-    // },[])
+import Home from "./Components/Lesson_4/Pages/Home";
+import Layout from "./Components/Lesson_4/Pages/Layout";
+import About from "./Components/Lesson_4/Pages/About";
+import Users from "./Components/Lesson_4/Pages/Users";
+import Posts from "./Components/Lesson_4/Pages/Posts";
+import Comments from "./Components/Lesson_4/Pages/Comments";
+import UserDetails from "./Components/Lesson_4/Pages/UserDetails";
 
-    const [comments, setComments] = useState([]);
-    useEffect(() => {
-        commentsRequests.getAll().then(({data}) => setComments([...data]))
-    },[])
-
+function App() {
     return (
-        <div style={{ textAlign: 'center'}}>
-            {/*<UsersForm setUsers={setUsers}/>*/}
-            {/*<hr/>*/}
-            {/*<Users users={users}/>*/}
-            <CommentsForm setComments={setComments}/>
-            <hr/>
-            <Comments comments={comments}/>
+        <div>
+            <div>
+                <h2>menu</h2>
+                <ul>
+                    <li><Link to={'/'}>home</Link></li>
+                    <li><Link to={'/layout'}>layout</Link></li>
+                    <li><Link to={'/about'}>about</Link></li>
+                </ul>
+            </div>
+
+            <div>
+                <h2>content</h2>
+
+                <Routes>
+                    <Route index element={<Home/>}/>
+                    <Route path={'/layout'} element={<Layout/>}>
+                        <Route path={'users'} element={<Users/>}>
+                            <Route path={':id'} element={<UserDetails/>}/>
+                        </Route>
+                        <Route path={'posts'} element={<Posts/>}/>
+                        <Route path={'comments'} element={<Comments/>}/>
+                    </Route>
+                    <Route path={'/about'} element={<About/>}/>
+                </Routes>
+            </div>
+
         </div>
     );
 }
+export default App;
