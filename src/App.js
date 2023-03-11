@@ -1,12 +1,13 @@
 import {Link, Routes, Route} from "react-router-dom";
 
-import Home from "./Components/Lesson_4/Pages/Home";
-import Layout from "./Components/Lesson_4/Pages/Layout";
-import About from "./Components/Lesson_4/Pages/About";
-import Users from "./Components/Lesson_4/Pages/Users";
-import Posts from "./Components/Lesson_4/Pages/Posts";
-import Comments from "./Components/Lesson_4/Pages/Comments";
-import UserDetails from "./Components/Lesson_4/Pages/UserDetails";
+import Home from "./Lesson_4/Pages/Home";
+import Layout from "./Lesson_4/Pages/Layout";
+import About from "./Lesson_4/Pages/About";
+import Users from "./Lesson_4/Pages/Users";
+import Posts from "./Lesson_4/Pages/Posts";
+import Comments from "./Lesson_4/Pages/Comments";
+import UserDetails from "./Lesson_4/Pages/UserDetails";
+import PostDetails from "./Lesson_4/Pages/PostDetails";
 
 function App() {
     return (
@@ -29,7 +30,9 @@ function App() {
                         <Route path={'users'} element={<Users/>}>
                             <Route path={':id'} element={<UserDetails/>}/>
                         </Route>
-                        <Route path={'posts'} element={<Posts/>}/>
+                        <Route path={'posts'} element={<Posts/>}>
+                            <Route path={':id'} element={<PostDetails/>}/>
+                        </Route>
                         <Route path={'comments'} element={<Comments/>}/>
                     </Route>
                     <Route path={'/about'} element={<About/>}/>
