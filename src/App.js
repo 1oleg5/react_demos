@@ -1,31 +1,40 @@
-import React, {useEffect, useState} from "react";
-import Post from "./Components/Users/Post";
-import {getUser, getUsers} from "./Components/Users/getPost";
+import {Link, Route, Routes} from "react-router-dom";
 
-function App() {
-    let [users, setUsers] = useState([]);
-    let [chosenUser, setChosenUser] = useState(null);
-    useEffect(() => {
-        getUsers().then(value => setUsers(value));
-    }, [])
+import Home from "./Lesson_4/Pages/Home";
+import Layout from "./Lesson_4/Pages/Layout";
+import About from "./Lesson_4/Pages/About";
+import Users from "./Lesson_4/Pages/Users";
+import Posts from "./Lesson_4/Pages/Posts";
+import Comments from "./Lesson_4/Pages/Comments";
+import UserDetails from "./Lesson_4/Components/UserDetails";
 
-    const choseUser = (id) => {
-        getUser(id).then(value => setChosenUser(value));
-    }
+export const App = () => {
+    return (
+        <div>
+            <div>
+                <h2>menu</h2>
+                <ul>
+                    <li><Link to={'/'}>home</Link></li>
+                    <li><Link to={'layout'}>layout</Link></li>
+                    <li><Link to={'about'}>about</Link></li>
+                </ul>
+            </div>
+            <div>
+                <h2>content</h2>
 
-    return (<div>
-            <div>{chosenUser?.body}</div>
-            <hr/>
-            {
-                users.map(value => <Post
-                    key={value.id}
-                    item={value}
-                    choseUser={choseUser}
-                />)
-            }
+                <Routes>
+                    <Route index element={<Home/>}/>
+                    <Route path={'layout'} element={<Layout/>}>
+                        <Route path={'users'} element={<Users/>}>
+                            <Route path={':id'} element={<UserDetails/>}/>
+                        </Route>
+                        <Route path={'posts'} element={<Posts/>}/>
+                        <Route path={'comments'} element={<Comments/>}/>
+                    </Route>
+                    <Route path={'about'} element={<About/>}/>
+                </Routes>
+            </div>
 
         </div>
     );
 }
-
-export default App;
