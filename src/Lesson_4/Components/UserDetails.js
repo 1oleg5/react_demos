@@ -5,7 +5,8 @@ export default function UserDetails() {
     let {state: user} = location;
     return (
         <div>
-            {JSON.stringify(user)}
+            {user.id} - {user.name} - {user.username} - {user.email} --
+             {JSON.stringify(user.address)}
         </div>
     );
 }

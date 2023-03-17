@@ -7,6 +7,7 @@ import Users from "./Lesson_4/Pages/Users";
 import Posts from "./Lesson_4/Pages/Posts";
 import Comments from "./Lesson_4/Pages/Comments";
 import UserDetails from "./Lesson_4/Components/UserDetails";
+import PostDetails from "./Lesson_4/Pages/PostDetails";
 
 export const App = () => {
     return (
@@ -28,7 +29,9 @@ export const App = () => {
                         <Route path={'users'} element={<Users/>}>
                             <Route path={':id'} element={<UserDetails/>}/>
                         </Route>
-                        <Route path={'posts'} element={<Posts/>}/>
+                        <Route path={'posts'} element={<Posts/>}>
+                            <Route path={':id'} element={<PostDetails/>}/>
+                        </Route>
                         <Route path={'comments'} element={<Comments/>}/>
                     </Route>
                     <Route path={'about'} element={<About/>}/>
