@@ -1,43 +1,28 @@
-import {Link, Route, Routes} from "react-router-dom";
+import {Routes, Route} from 'react-router-dom';
 
-import Home from "./Lesson_4/Pages/Home";
-import Layout from "./Lesson_4/Pages/Layout";
-import About from "./Lesson_4/Pages/About";
-import Users from "./Lesson_4/Pages/Users";
-import Posts from "./Lesson_4/Pages/Posts";
-import Comments from "./Lesson_4/Pages/Comments";
-import UserDetails from "./Lesson_4/Components/UserDetails";
-import PostDetails from "./Lesson_4/Pages/PostDetails";
+import {RouterEndPoints} from "./Lesson_4/Routes/routes";
+import {MainLayout} from "./Lesson_4/layout/MainLayout";
+import {Home} from "./Lesson_4/pages/Home/Home";
+import {Todos} from "./Lesson_4/pages/TodosPage/Todos";
+import {Albums} from "./Lesson_4/pages/Albums/Albums";
+import {CommentsPage} from "./Lesson_4/pages/CommentsPage/CommentsPage";
+import {PostByComment} from "./Lesson_4/pages/PostByComment/PostByComment";
+
 
 export const App = () => {
     return (
-        <div>
-            <div>
-                <h2>menu</h2>
-                <ul>
-                    <li><Link to={'/'}>home</Link></li>
-                    <li><Link to={'layout'}>layout</Link></li>
-                    <li><Link to={'about'}>about</Link></li>
-                </ul>
-            </div>
-            <div>
-                <h2>content</h2>
-
-                <Routes>
-                    <Route index element={<Home/>}/>
-                    <Route path={'layout'} element={<Layout/>}>
-                        <Route path={'users'} element={<Users/>}>
-                            <Route path={':id'} element={<UserDetails/>}/>
-                        </Route>
-                        <Route path={'posts'} element={<Posts/>}>
-                            <Route path={':id'} element={<PostDetails/>}/>
-                        </Route>
-                        <Route path={'comments'} element={<Comments/>}/>
+        <div className='App'>
+            <Routes>
+                <Route path={RouterEndPoints.index} element={<MainLayout/>}>
+                    <Route path={RouterEndPoints.index} element={<Home/>}/>
+                    <Route path={RouterEndPoints.todos} element={<Todos/>}/>
+                    <Route path={RouterEndPoints.albums} element={<Albums/>}/>
+                    <Route path={RouterEndPoints.comments} element={<CommentsPage/>}>
+                        <Route path={RouterEndPoints.postId} element={<PostByComment/>}/>
                     </Route>
-                    <Route path={'about'} element={<About/>}/>
-                </Routes>
-            </div>
 
+                </Route>
+            </Routes>
         </div>
     );
 }
