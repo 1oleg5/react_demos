@@ -1,31 +1,14 @@
-import React, {useEffect, useState} from "react";
-import Post from "./Components/Users/Post";
-import {getUser, getUsers} from "./Components/Users/getPost";
+import React from 'react';
+import Header from "./components/Header/Header";
+import Users from "./components/Users/Users";
 
-function App() {
-    let [users, setUsers] = useState([]);
-    let [chosenUser, setChosenUser] = useState(null);
-    useEffect(() => {
-        getUsers().then(value => setUsers(value));
-    }, [])
-
-    const choseUser = (id) => {
-        getUser(id).then(value => setChosenUser(value));
-    }
-
-    return (<div>
-            <div>{chosenUser?.body}</div>
-            <hr/>
-            {
-                users.map(value => <Post
-                    key={value.id}
-                    item={value}
-                    choseUser={choseUser}
-                />)
-            }
-
+const App = () => {
+    return (
+        <div>
+            <Header/>
+            <Users/>
         </div>
     );
-}
+};
 
 export default App;
