@@ -1,31 +1,27 @@
-import React, {useEffect, useState} from "react";
-import Post from "./Components/Users/Post";
-import {getUser, getUsers} from "./Components/Users/getPost";
+import React from 'react';
+import {Route, Routes, Navigate} from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import AuthRequireLayout from "./layouts/AuthRequireLayout";
+import CarsPage from "./pages/CarsPage/CarsPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
-function App() {
-    let [users, setUsers] = useState([]);
-    let [chosenUser, setChosenUser] = useState(null);
-    useEffect(() => {
-        getUsers().then(value => setUsers(value));
-    }, [])
+const App = () => {
+    return (
+        <Routes>
+            <Route path={'/'} element={<MainLayout/>}>
+                <Route index element={<Navigate to={'cars'}/>}/>
 
-    const choseUser = (id) => {
-        getUser(id).then(value => setChosenUser(value));
-    }
+                <Route element={<AuthRequireLayout/>}>
+                    <Route path={'cars'} element={<CarsPage/>}/>
+                </Route>
 
-    return (<div>
-            <div>{chosenUser?.body}</div>
-            <hr/>
-            {
-                users.map(value => <Post
-                    key={value.id}
-                    item={value}
-                    choseUser={choseUser}
-                />)
-            }
+                <Route path={'login'} element={<LoginPage/>}/>
 
-        </div>
+                <Route path={'register'} element={<RegisterPage/>}/>
+            </Route>
+        </Routes>
     );
-}
+};
 
 export default App;
